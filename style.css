@@ -31,7 +31,13 @@ section {
 }
 
 section > div {
+    display: flex;
+    font-size: clamp(0.8rem, 8vw, 8rem);
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
     background: var(--board-background);    
     border: 2px solid black;
-    flex: 1 1 30%;
+    height: 33.4%;
+    flex: 0 0 33.3%;
 }
