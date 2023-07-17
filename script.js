@@ -17,6 +17,7 @@ const GameController = (() => {
 
     tiles.forEach(element => {element.addEventListener('click', (e) => {
         updateBoard(e);
+        UIController.updateBoard(e);
         updateTurn();
     })})
 
@@ -31,6 +32,15 @@ const GameController = (() => {
     }
 
     return { createPlayer };
+})()
+
+const UIController = (() => {
+    const updateBoard = (e) => {
+        if (playerOne.isTurn === true) e.target.innerText = playerOne.mark;
+        else if (playerTwo.isTurn === true) e.target.innerText = playerTwo.mark;
+    }
+
+    return { updateBoard };
 })()
 
 const playerOne = GameController.createPlayer('Player X', 'X', true);
