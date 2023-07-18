@@ -20,7 +20,8 @@ const GameController = (() => {
         updateBoard(e);
         UIController.updateBoard(e);
         updateTurn();
-        console.log(playerOne, playerTwo)
+        checkWinner();
+        console.log(GameBoard.board)
     })})
 
     const updateBoard = (e) => {
@@ -31,6 +32,21 @@ const GameController = (() => {
     const updateTurn = () => {
         if (playerOne.isTurn === true) {playerOne.isTurn = false; playerTwo.isTurn = true}
         else if (playerTwo.isTurn === true) {playerOne.isTurn = true; playerTwo.isTurn = false}
+    }
+
+    const checkWinner = () => {
+        if (GameBoard.board[0] !== "" && GameBoard.board[0] === GameBoard.board[1] && GameBoard.board[1] === GameBoard.board[2]) endGame();
+        if (GameBoard.board[3] !== "" && GameBoard.board[3] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[5]) endGame();
+        if (GameBoard.board[6] !== "" && GameBoard.board[6] === GameBoard.board[7] && GameBoard.board[7] === GameBoard.board[8]) endGame();
+        if (GameBoard.board[0] !== "" && GameBoard.board[0] === GameBoard.board[3] && GameBoard.board[3] === GameBoard.board[6]) endGame();
+        if (GameBoard.board[1] !== "" && GameBoard.board[1] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[7]) endGame();
+        if (GameBoard.board[2] !== "" && GameBoard.board[2] === GameBoard.board[5] && GameBoard.board[5] === GameBoard.board[8]) endGame();
+        if (GameBoard.board[0] !== "" && GameBoard.board[0] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[8]) endGame();
+        if (GameBoard.board[2] !== "" && GameBoard.board[2] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[6]) endGame();
+    }
+
+    const endGame = () => {
+        console.log("Game Over");
     }
 
     return { createPlayer };
