@@ -1,8 +1,9 @@
 const tiles = document.querySelectorAll('.tile');
+const gameInfo = document.querySelector('#game-info');
+const restartButton = document.querySelector('#restart');
 
-
-const Player = (name, mark, isTurn) => {
-    return { name, mark, isTurn };
+const Player = (name, mark, isTurn, hasWon = false) => {
+    return { name, mark, isTurn, hasWon };
 }
 
 
@@ -35,28 +36,71 @@ const GameController = (() => {
     }
 
     const checkWinner = () => {
-        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[1] && GameBoard.board[1] === GameBoard.board[2]) endGame();
-        if (GameBoard.board[3] !== '' && GameBoard.board[3] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[5]) endGame();
-        if (GameBoard.board[6] !== '' && GameBoard.board[6] === GameBoard.board[7] && GameBoard.board[7] === GameBoard.board[8]) endGame();
-        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[3] && GameBoard.board[3] === GameBoard.board[6]) endGame();
-        if (GameBoard.board[1] !== '' && GameBoard.board[1] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[7]) endGame();
-        if (GameBoard.board[2] !== '' && GameBoard.board[2] === GameBoard.board[5] && GameBoard.board[5] === GameBoard.board[8]) endGame();
-        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[8]) endGame();
-        if (GameBoard.board[2] !== '' && GameBoard.board[2] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[6]) endGame();
+        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[1] && GameBoard.board[1] === GameBoard.board[2]) {
+            if(GameBoard.board[0] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[0] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[3] !== '' && GameBoard.board[3] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[5]) {
+            if(GameBoard.board[3] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[3] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[6] !== '' && GameBoard.board[6] === GameBoard.board[7] && GameBoard.board[7] === GameBoard.board[8]) {
+            if(GameBoard.board[6] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[6] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[3] && GameBoard.board[3] === GameBoard.board[6]) {
+            if(GameBoard.board[0] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[0] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[1] !== '' && GameBoard.board[1] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[7]) {
+            if(GameBoard.board[1] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[1] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[2] !== '' && GameBoard.board[2] === GameBoard.board[5] && GameBoard.board[5] === GameBoard.board[8]) {
+            if(GameBoard.board[2] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[2] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[8]) {
+            if(GameBoard.board[0] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[0] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
+        if (GameBoard.board[2] !== '' && GameBoard.board[2] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[6]) {
+            if(GameBoard.board[2] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
+            else if (GameBoard.board[2] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
+        }
     }
 
     const endGame = () => {
-        GameBoard.board = ['', '', '', '', '', '', '', '', '']
         UIController.preventFurtherUpdates();
+        if (playerOne.hasWon) gameInfo.innerText = `${playerOne.name} Wins!`;
+        if (playerTwo.hasWon) gameInfo.innerText = `${playerTwo.name} Wins!`;
+        restartButton.addEventListener('click', restartGame);
     }
+
+    const restartGame = () => {
+        playerOne.hasWon = false;
+        playerTwo.hasWon = false;
+        GameBoard.board = ['', '', '', '', '', '', '', '', ''];
+        UIController.clearBoard();
+        UIController.allowUpdates();
+        restartButton.removeEventListener('click', restartGame);
+    }
+
+
 
     return { createPlayer };
 })()
 
 const UIController = (() => {
     const updateBoard = (e) => {
-        if (playerOne.isTurn === true) e.target.innerText = playerOne.mark;
-        else if (playerTwo.isTurn === true) e.target.innerText = playerTwo.mark;
+        if (playerOne.isTurn === true) {
+            e.target.innerText = playerOne.mark;
+            gameInfo.innerText = `${playerOne.name}'s Turn`;
+        } else if (playerTwo.isTurn === true) 
+        {
+            e.target.innerText = playerTwo.mark;
+            gameInfo.innerText = `${playerTwo.name}'s Turn`;
+        }
     }
 
     const clearBoard = () => {
@@ -67,11 +111,15 @@ const UIController = (() => {
         playerOne.isTurn = false;
         playerTwo.isTurn = false;
     }
-    return { updateBoard, clearBoard, preventFurtherUpdates };
+
+    const allowUpdates = () => {
+        playerOne.isTurn = true;
+        playerTwo.isTurn = false;
+    }
+    return { updateBoard, clearBoard, preventFurtherUpdates, allowUpdates };
 })()
 
 const playerOne = GameController.createPlayer('Player X', 'X', true);
 const playerTwo = GameController.createPlayer('Player O', 'O', false);
-
 
 
