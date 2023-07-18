@@ -13,6 +13,7 @@ body {
 :root {
     --cursive-font: 'Dancing Script', cursive;
     --board-background: #a27dbb;
+    --dark-lavendar: #513563;
 }
 
 header {
@@ -40,4 +41,17 @@ section > div {
     border: 2px solid black;
     height: 33.4%;
     flex: 0 0 33.3%;
+}
+
+#restart {
+    font-size: clamp(0.8rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--board-background);
+    display: block;
+    margin: 0 auto;
+    padding: 0.8em 1.6em;
+    margin-top: 2em;
+    border-radius: 8px;
+    border: 4px solid var(--board-background);
+    background: var(--dark-lavendar);
 }
