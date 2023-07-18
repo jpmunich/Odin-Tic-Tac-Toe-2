@@ -17,8 +17,8 @@ const GameController = (() => {
 
     tiles.forEach(element => {element.addEventListener('click', (e) => {
         if (e.target.innerText !== "") return;
-        updateBoard(e);
         UIController.updateBoard(e);
+        updateBoard(e);
         updateTurn();
         checkWinner();
         console.log(GameBoard.board)
@@ -46,7 +46,8 @@ const GameController = (() => {
     }
 
     const endGame = () => {
-        console.log("Game Over");
+        GameBoard.board = ['', '', '', '', '', '', '', '', '']
+        UIController.preventFurtherUpdates();
     }
 
     return { createPlayer };
@@ -58,7 +59,15 @@ const UIController = (() => {
         else if (playerTwo.isTurn === true) e.target.innerText = playerTwo.mark;
     }
 
-    return { updateBoard };
+    const clearBoard = () => {
+        tiles.forEach(tile => {tile.innerText = ''})
+    }
+
+    const preventFurtherUpdates = () => {
+        playerOne.isTurn = false;
+        playerTwo.isTurn = false;
+    }
+    return { updateBoard, clearBoard, preventFurtherUpdates };
 })()
 
 const playerOne = GameController.createPlayer('Player X', 'X', true);
