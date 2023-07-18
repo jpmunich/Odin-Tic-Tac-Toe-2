@@ -13,14 +13,24 @@ body {
 :root {
     --cursive-font: 'Dancing Script', cursive;
     --board-background: #a27dbb;
-    --dark-lavendar: #513563;
+    --dark-lavendar: #412a4e;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
 }
 
 header {
-    padding: 2em;
+    padding: 2em 2em 1em 2em;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#game-info {
+    font-size: clamp(0.8rem, 2.5vw, 2rem);
+    padding-bottom: 1em;
+    text-align: center;
 }
 
 section {
