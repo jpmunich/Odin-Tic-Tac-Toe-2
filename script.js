@@ -16,7 +16,7 @@ const GameController = (() => {
     const createPlayer = (name, mark, isTurn) => {return Player(name, mark, isTurn)}
 
     tiles.forEach(element => {element.addEventListener('click', (e) => {
-        if (e.target.innerText !== "") return;
+        if (e.target.innerText !== '') return;
         UIController.updateBoard(e);
         updateBoard(e);
         updateTurn();
@@ -35,14 +35,14 @@ const GameController = (() => {
     }
 
     const checkWinner = () => {
-        if (GameBoard.board[0] !== "" && GameBoard.board[0] === GameBoard.board[1] && GameBoard.board[1] === GameBoard.board[2]) endGame();
-        if (GameBoard.board[3] !== "" && GameBoard.board[3] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[5]) endGame();
-        if (GameBoard.board[6] !== "" && GameBoard.board[6] === GameBoard.board[7] && GameBoard.board[7] === GameBoard.board[8]) endGame();
-        if (GameBoard.board[0] !== "" && GameBoard.board[0] === GameBoard.board[3] && GameBoard.board[3] === GameBoard.board[6]) endGame();
-        if (GameBoard.board[1] !== "" && GameBoard.board[1] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[7]) endGame();
-        if (GameBoard.board[2] !== "" && GameBoard.board[2] === GameBoard.board[5] && GameBoard.board[5] === GameBoard.board[8]) endGame();
-        if (GameBoard.board[0] !== "" && GameBoard.board[0] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[8]) endGame();
-        if (GameBoard.board[2] !== "" && GameBoard.board[2] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[6]) endGame();
+        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[1] && GameBoard.board[1] === GameBoard.board[2]) endGame();
+        if (GameBoard.board[3] !== '' && GameBoard.board[3] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[5]) endGame();
+        if (GameBoard.board[6] !== '' && GameBoard.board[6] === GameBoard.board[7] && GameBoard.board[7] === GameBoard.board[8]) endGame();
+        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[3] && GameBoard.board[3] === GameBoard.board[6]) endGame();
+        if (GameBoard.board[1] !== '' && GameBoard.board[1] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[7]) endGame();
+        if (GameBoard.board[2] !== '' && GameBoard.board[2] === GameBoard.board[5] && GameBoard.board[5] === GameBoard.board[8]) endGame();
+        if (GameBoard.board[0] !== '' && GameBoard.board[0] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[8]) endGame();
+        if (GameBoard.board[2] !== '' && GameBoard.board[2] === GameBoard.board[4] && GameBoard.board[4] === GameBoard.board[6]) endGame();
     }
 
     const endGame = () => {
