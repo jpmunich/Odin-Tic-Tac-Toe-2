@@ -22,7 +22,6 @@ const GameController = (() => {
         updateBoard(e);
         updateTurn();
         checkWinner();
-        console.log(GameBoard.board)
     })})
 
     const updateBoard = (e) => {
@@ -68,18 +67,25 @@ const GameController = (() => {
             if(GameBoard.board[2] === playerOne.mark) {playerOne.hasWon = true; endGame();} 
             else if (GameBoard.board[2] === playerTwo.mark) {playerTwo.hasWon = true; endGame();}
         }
+        if (GameBoard.board[0] !== '' && GameBoard.board[1] !== '' && GameBoard.board[2] !== '' && GameBoard.board[3] !== '' && GameBoard.board[4] !== '' && GameBoard.board[5] !== '' && GameBoard.board[6] !== '' && GameBoard.board[7] !== '' && GameBoard.board[8] !== '') {
+            if (playerTwo.hasWon === false && playerOne.hasWon === false) {
+                endGame();
+            }
+        }
     }
 
     const endGame = () => {
         UIController.preventFurtherUpdates();
         if (playerOne.hasWon) gameInfo.innerText = `${playerOne.name} Wins!`;
         if (playerTwo.hasWon) gameInfo.innerText = `${playerTwo.name} Wins!`;
+        if (!playerOne.hasWon && !playerTwo.hasWon) gameInfo.innerText = `It's a tie!`;
         restartButton.addEventListener('click', restartGame);
     }
 
     const restartGame = () => {
         playerOne.hasWon = false;
         playerTwo.hasWon = false;
+        gameInfo.innerText = 'Welcome to Tic Tac Toe!';
         GameBoard.board = ['', '', '', '', '', '', '', '', ''];
         UIController.clearBoard();
         UIController.allowUpdates();
@@ -95,11 +101,11 @@ const UIController = (() => {
     const updateBoard = (e) => {
         if (playerOne.isTurn === true) {
             e.target.innerText = playerOne.mark;
-            gameInfo.innerText = `${playerOne.name}'s Turn`;
+            gameInfo.innerText = `${playerTwo.name}'s Turn`;
         } else if (playerTwo.isTurn === true) 
         {
             e.target.innerText = playerTwo.mark;
-            gameInfo.innerText = `${playerTwo.name}'s Turn`;
+            gameInfo.innerText = `${playerOne.name}'s Turn`;
         }
     }
 
