@@ -17,10 +17,12 @@ body {
 }
 
 h1 {
+    color: var(--board-background);
     font-size: clamp(2rem, 5vw, 3rem);
 }
 
 header {
+    background: var(--dark-lavendar);
     padding: 2em 2em 1em 2em;
     display: flex;
     justify-content: center;
@@ -28,14 +30,17 @@ header {
 }
 
 #game-info {
+    background: var(--dark-lavendar);
+    color: var(--board-background);
     font-size: clamp(0.8rem, 2.5vw, 2rem);
     padding-bottom: 1em;
     text-align: center;
+    margin-bottom: 3em;
 }
 
 section {
-    width: calc(45vw - 20px);
-    height: calc(45vw - 20px);
+    width: clamp(240px, 42.5vw, 400px);
+    height: clamp(240px, 42.5vw, 400px);
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -43,18 +48,19 @@ section {
 
 section > div {
     display: flex;
+    color: var(--board-background);
     font-size: clamp(0.8rem, 8vw, 8rem);
     font-weight: 700;
     justify-content: center;
     align-items: center;
-    background: var(--board-background);    
-    border: 2px solid black;
+    background: var(--dark-lavendar);    
+    border: 2px solid var(--board-background);
     height: 33.4%;
     flex: 0 0 33.3%;
 }
 
 #restart {
-    font-size: clamp(0.8rem, 3.5vw, 2rem);
+    font-size: clamp(0.8rem, 2.8vw, 2rem);
     font-weight: 700;
     color: var(--board-background);
     display: block;
@@ -64,4 +70,5 @@ section > div {
     border-radius: 8px;
     border: 4px solid var(--board-background);
     background: var(--dark-lavendar);
+    margin-bottom: 2em;
 }
